@@ -1,6 +1,6 @@
 manifestVersion: 1
 id: moxy-umbrel
-category: Utility
+category: utility
 name: TP-Link Omada Controller
 version: "6.0"
 tagline: TP-Link Omada Controller
