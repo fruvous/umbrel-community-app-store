@@ -1,0 +1,21 @@
+services:
+  netbird:
+      container_name: netbird_client
+      hostname: umbrel
+      cap_add:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
+      network_mode: host
+      environment:
+          - NB_SETUP_KEY=DA400252-5A48-49DF-BB5C-7FC7E9ADAAA5
+          - NB_MANAGEMENT_URL=https://netbird.orangewedge.com:443
+      ports:
+          - "5353:53"
+      volumes:
+          - ${APP_DATA_DIR}/netbird-client:/var/lib/netbird
+      image: netbirdio/netbird:latest
+      restart: unless-stopped
+volumes:
+  netbird-client:
+      name: netbird-client
