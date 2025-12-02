@@ -1,0 +1,26 @@
+manifestVersion: 1
+id: umbrel-guacamole
+category: moxy-guacamole
+name: Guacamole
+version: "1.6.0"
+tagline: Guacamole
+description: >-
+  Apache Guacamole is a free and open-source, cross-platform, clientless remote desktop gateway maintained by the Apache Software Foundation. 
+releaseNotes: >-
+  This version includes various improvements and bug fixes.
+developer: guacamole
+website: https://hub.docker.com/r/guacamole/guacamole
+dependencies: []
+repo: https://github.com/fruvous/umbrel-community-app-store
+support: https://github.com/fruvous/umbrel-community-app-store
+port: 10061
+gallery:
+  - 1.jpg
+  - 2.jpg
+  - 3.jpg
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/guacamole.png
+submitter: moxy
+submission: https://github.com/fruvous/umbrel-community-app-store
