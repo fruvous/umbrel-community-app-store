@@ -1,6 +1,6 @@
 manifestVersion: 1
 id: moxy-guacamole
-category: Utility
+category: utility
 name: Guacamole
 version: "1.6.0"
 tagline: Guacamole
