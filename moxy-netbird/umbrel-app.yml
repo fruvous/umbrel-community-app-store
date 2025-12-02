@@ -1,6 +1,6 @@
 manifestVersion: 1
 id: moxy-netbird
-name: NetbirdClient1
+name: Netbird
 tagline: An adaptive client for Zero Trust Networking
 icon: https://raw.githubusercontent.com/dennysubke/dennys-umbrel-app-gallery/main/denny-netbird/logo.png
 category: networking
