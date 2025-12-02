@@ -1,6 +1,6 @@
 manifestVersion: 1
 id: umbrel-guacamole
-category: moxy-guacamole
+category: Utility
 name: Guacamole
 version: "1.6.0"
 tagline: Guacamole
