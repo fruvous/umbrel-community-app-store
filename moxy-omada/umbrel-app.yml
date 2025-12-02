@@ -7,7 +7,7 @@ tagline: TP-Link Omada Controller
 description: >-
   Docker image for TP-Link Omada Controller to control TP-Link Omada Hardware
 releaseNotes: >-
-  This version includes various improvements and bug fixes.
+  This version includes various improvements and bug fixes. v2
 developer: moxy
 website: https://github.com/fruvous/umbrel-community-app-store
 dependencies: []
