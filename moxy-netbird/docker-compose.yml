@@ -8,8 +8,8 @@ services:
           - SYS_RESOURCE
       network_mode: host
       environment:
-          - NB_SETUP_KEY=DA400252-5A48-49DF-BB5C-7FC7E9ADAAA5
-          - NB_MANAGEMENT_URL=https://netbird.orangewedge.com:443
+          - NB_SETUP_KEY=<YOUR KEY>
+          - NB_MANAGEMENT_URL=https://YOURURL.com:443
       ports:
           - "5353:53"
       volumes:
