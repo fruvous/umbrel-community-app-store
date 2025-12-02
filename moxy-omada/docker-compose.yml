@@ -1,6 +1,6 @@
 services:
   omada-controller:
-    container_name: omada-controller
+    container_name: omadacontroller
     image: mbentley/docker-omada-controller:latest
     restart: unless-stopped
     ulimits:
