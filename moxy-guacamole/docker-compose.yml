@@ -10,10 +10,9 @@ services:
       - no-new-privileges:false
     restart: always # Or unless-stopped
     ports:
-      - 8348:8080
+      - '8348:8080'
     volumes:
       - ${APP_DATA_DIR}/data/guacamole:/config:rw
-
     environment:
       PUID: 1027
       PGID: 101
