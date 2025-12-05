@@ -1,5 +1,5 @@
 manifestVersion: 1
-id: moxy-umbrel
+id: big-bear-umbrel-tp-link-omada-controller
 category: utility
 name: TP-Link Omada Controller
 version: "6"
@@ -7,12 +7,12 @@ tagline: TP-Link Omada Controller
 description: >-
   Docker image for TP-Link Omada Controller to control TP-Link Omada Hardware
 releaseNotes: >-
-  This version includes various improvements and bug fixes. v2
-developer: moxy
+  This version includes various improvements and bug fixes.
+developer: BigBearTechWorld
 website: https://github.com/fruvous/umbrel-community-app-store
 dependencies: []
 repo: https://github.com/fruvous/umbrel-community-app-store
-support: https://github.com/fruvous/umbrel-community-app-store
+support: https://github.com/fruvous/umbrel-community-app-store/issues
 port: 8088
 gallery:
   - 1.jpg
