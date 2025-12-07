@@ -13,7 +13,7 @@ website: https://hub.docker.com/r/guacamole/guacamole
 dependencies: []
 repo: https://github.com/fruvous/umbrel-community-app-store
 support: https://github.com/fruvous/umbrel-community-app-store
-port: 10061
+port: 8348
 gallery:
   - 1.jpg
   - 2.jpg
