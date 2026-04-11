@@ -3,7 +3,7 @@ id: moxy-dawarich
 name: Dawarich
 tagline: A Location History Tracker
 icon: https://raw.githubusercontent.com/dennysubke/dennys-umbrel-app-gallery/main/denny-dawarich/logo.png
-category: files & productivity
+category: utility
 version: "1.6.1"
 port: 8955
 description: >-
