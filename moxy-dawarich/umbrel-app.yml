@@ -1,5 +1,5 @@
 manifestVersion: 1
-id: denny-dawarich
+id: moxy-dawarich
 name: Dawarich
 tagline: A Location History Tracker
 icon: https://raw.githubusercontent.com/dennysubke/dennys-umbrel-app-gallery/main/denny-dawarich/logo.png
@@ -19,7 +19,7 @@ description: >-
   The result is a beautifully designed, data-rich environment that gives you full ownership of your location information. It turns raw movement records into an insightful, personal story that you can explore at any time, preserving your journeys and experiences in a form that is both private and visually compelling.
 developer: ZeitFlow UG
 website: https://dawarich.app/
-submitter: dennysubke
+submitter: moxy
 submission: https://github.com/getumbrel/umbrel-apps/pull/
 repo: https://github.com/Freika/dawarich
 support: https://github.com/Freika/dawarich/issues
@@ -30,7 +30,6 @@ gallery:
   - https://raw.githubusercontent.com/dennysubke/dennys-umbrel-app-gallery/main/denny-dawarich/4.jpg
   - https://raw.githubusercontent.com/dennysubke/dennys-umbrel-app-gallery/main/denny-dawarich/5.jpg
 releaseNotes: >-
-  Version 0.30.8 fixes issues with the fog of war feature so it now works correctly when zooming or moving the map, resolves a problem with incorrect visit suggestions, and restores proper functionality of the scratch map. These improvements enhance map interaction and ensure location data is displayed as intended.
 dependencies: []
 path: ""
 defaultUsername: "demo@dawarich.app"
