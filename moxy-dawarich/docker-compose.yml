@@ -118,7 +118,8 @@ services:
 
 networks:
   default:
-    name: moxy-dawarich_main
+    external:
+       name: moxy-dawarich_main
 
 volumes:
   dawarich_db_data:
