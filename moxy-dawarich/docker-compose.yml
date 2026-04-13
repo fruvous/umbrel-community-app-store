@@ -2,7 +2,7 @@ services:
   # Main Application
   web:
     image: freikin/dawarich:latest
-    container_name: dawarich_app
+    container_name: moxy_dawarich_app
     restart: on-failure
     stop_grace_period: 1m
     volumes:
