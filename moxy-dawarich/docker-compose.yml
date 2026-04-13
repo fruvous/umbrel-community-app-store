@@ -42,6 +42,12 @@ services:
       dawarich_redis:
         condition: service_healthy
 
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 10s
+      timeout: 10s
+      retries: 5    
+
   # Background Worker
   sidekiq:
     image: freikin/dawarich:latest
