@@ -116,10 +116,10 @@ services:
       interval: 10s
       retries: 5
 
-networks:
-  default:
-    external:
-       name: moxy-dawarich_main
+# networks:
+#  default:
+#    external:
+#       name: moxy-dawarich_main
 
 volumes:
   dawarich_db_data:
