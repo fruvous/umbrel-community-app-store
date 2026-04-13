@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   # Main Application
   web:
@@ -14,8 +12,8 @@ services:
       - dawarich_db_data:/dawarich_db_data
     environment:
       RAILS_ENV: production
-      REDIS_URL: redis://redis:6379
-      DATABASE_HOST: db
+      REDIS_URL: redis://dawarich_redis:6379
+      DATABASE_HOST: dawarich_db
       DATABASE_PORT: 5432
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: password
@@ -37,14 +35,14 @@ services:
       SMTP_STARTTLS: "true"
       SMTP_AUTHENTICATION: "plain"
     networks:
-      - default
+      default:
     depends_on:
-      db:
+      dawarich_db:
         condition: service_healthy
-      redis:
+      dawarich_redis:
         condition: service_healthy
 
-  # Background Worker (Handles email sending)
+  # Background Worker
   sidekiq:
     image: freikin/dawarich:latest
     container_name: dawarich_sidekiq
@@ -57,15 +55,15 @@ services:
       - dawarich_storage:/var/app/storage
     environment:
       RAILS_ENV: production
-      REDIS_URL: redis://redis:6379
-      DATABASE_HOST: db
+      REDIS_URL: redis://dawarich_redis:6379
+      DATABASE_HOST: dawarich_db
       DATABASE_PORT: 5432
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: password
       DATABASE_NAME: dawarich_production
       BACKGROUND_PROCESSING_CONCURRENCY: 5
       SECRET_KEY_BASE: "CHANGE_ME_TO_A_LONG_RANDOM_STRING"
-      # SMTP Settings mirrored for background jobs
+      # SMTP Settings
       SMTP_SERVER: "smtp.gmail.com"
       SMTP_PORT: 587
       SMTP_USERNAME: "your-email@gmail.com"
@@ -75,14 +73,55 @@ services:
       SMTP_STARTTLS: "true"
       SMTP_AUTHENTICATION: "plain"
     networks:
-      - default
+      default:
     depends_on:
-      db:
+      dawarich_db:
         condition: service_healthy
-      redis:
+      dawarich_redis:
         condition: service_healthy
       web:
         condition: service_healthy
 
-  db:
+  # Database
+  dawarich_db:
     image: postgis/postgis:17-3.5-alpine
+    container_name: dawarich_db
+    shm_size: 1G
+    volumes:
+      - dawarich_db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dawarich_production
+    restart: always
+    networks:
+      default:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d dawarich_production"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  # Redis
+  dawarich_redis:
+    image: redis:7.4-alpine
+    container_name: dawarich_redis
+    command: redis-server --save 60 1 --appendonly no
+    restart: always
+    networks:
+      default:
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      retries: 5
+
+networks:
+  default:
+    name: moxy-dawarich_main
+
+volumes:
+  dawarich_db_data:
+  dawarich_public:
+  dawarich_watched:
+  dawarich_storage:
