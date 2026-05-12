@@ -8,7 +8,6 @@ services:
       - ${APP_DATA_DIR}/data/redis:/data
 
   db:
-    # Using the standard PostGIS image for maximum compatibility
     image: postgis/postgis:17-3.5-alpine
     shm_size: 1G
     restart: always
@@ -24,6 +23,8 @@ services:
     restart: always
     entrypoint: web-entrypoint.sh
     command: ['bin/rails', 'server', '-p', '3000', '-b', '0.0.0.0']
+    ports:
+      - "8955:3000"
     volumes:
       - ${APP_DATA_DIR}/data/public:/var/app/public
       - ${APP_DATA_DIR}/data/watched:/var/app/tmp/imports/watched
@@ -39,7 +40,6 @@ services:
       APPLICATION_HOSTS: "*"
       TIME_ZONE: UTC
       APPLICATION_PROTOCOL: http
-      # Umbrel provides this automatically
       SECRET_KEY_BASE: ${APP_PASSWORD}
       RAILS_LOG_TO_STDOUT: "true"
       SELF_HOSTED: "true"
