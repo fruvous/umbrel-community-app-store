@@ -3,24 +3,13 @@ version: "3.7"
 services:
   redis:
     image: redis:7.4-alpine
-    command: >
-      redis-server
-      --save 900 1
-      --save 300 10
-      --appendonly no
     restart: always
     volumes:
-      - ${APP_DATA_DIR}/redis:/data
-    healthcheck:
-      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 10s
+      - ${APP_DATA_DIR}/data/redis:/data
 
   db:
-    # Optimized for ARM/Raspberry Pi (standard for Umbrel)
-    image: imresamu/postgis:17-3.5-alpine
+    # Using the standard PostGIS image for maximum compatibility
+    image: postgis/postgis:17-3.5-alpine
     shm_size: 1G
     restart: always
     environment:
@@ -28,23 +17,17 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: dawarich_production
     volumes:
-      - ${APP_DATA_DIR}/db:/var/lib/postgresql/data
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d dawarich_production" ]
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 10s
+      - ${APP_DATA_DIR}/data/db:/var/lib/postgresql/data
 
   app:
     image: freikin/dawarich:latest
-    restart: on-failure
+    restart: always
     entrypoint: web-entrypoint.sh
     command: ['bin/rails', 'server', '-p', '3000', '-b', '0.0.0.0']
     volumes:
-      - ${APP_DATA_DIR}/public:/var/app/public
-      - ${APP_DATA_DIR}/watched:/var/app/tmp/imports/watched
-      - ${APP_DATA_DIR}/storage:/var/app/storage
+      - ${APP_DATA_DIR}/data/public:/var/app/public
+      - ${APP_DATA_DIR}/data/watched:/var/app/tmp/imports/watched
+      - ${APP_DATA_DIR}/data/storage:/var/app/storage
     environment:
       RAILS_ENV: production
       REDIS_URL: redis://redis:6379
@@ -56,25 +39,21 @@ services:
       APPLICATION_HOSTS: "*"
       TIME_ZONE: UTC
       APPLICATION_PROTOCOL: http
+      # Umbrel provides this automatically
       SECRET_KEY_BASE: ${APP_PASSWORD}
       RAILS_LOG_TO_STDOUT: "true"
       SELF_HOSTED: "true"
       STORE_GEODATA: "true"
-    depends_on:
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
 
   sidekiq:
     image: freikin/dawarich:latest
-    restart: on-failure
+    restart: always
     entrypoint: sidekiq-entrypoint.sh
     command: ['sidekiq']
     volumes:
-      - ${APP_DATA_DIR}/public:/var/app/public
-      - ${APP_DATA_DIR}/watched:/var/app/tmp/imports/watched
-      - ${APP_DATA_DIR}/storage:/var/app/storage
+      - ${APP_DATA_DIR}/data/public:/var/app/public
+      - ${APP_DATA_DIR}/data/watched:/var/app/tmp/imports/watched
+      - ${APP_DATA_DIR}/data/storage:/var/app/storage
     environment:
       RAILS_ENV: production
       REDIS_URL: redis://redis:6379
@@ -85,19 +64,3 @@ services:
       DATABASE_NAME: dawarich_production
       BACKGROUND_PROCESSING_CONCURRENCY: 5
       SECRET_KEY_BASE: ${APP_PASSWORD}
-    depends_on:
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      app:
-        condition: service_healthy
- `${APP_PASSWORD}` (your Umbrel dashboard password) as the `SECRET_KEY_BASE`. This makes it unique to your install without manual editing.
-*   **Networking**: Removed the custom network blocks. Umbrel automatically puts all services in a compose file into a shared network where they can see each other by service name (e.g., `db`, `redis`).
-*   **Database**: Set `POSTGRES_DB` to `dawarich_production` to align with the Rails production environment.
-
-### Integration Tip:
-If you are building an official Umbrel App folder, remember to create an `umbrel-app.yml` in the same directory. You'll need to map the web UI port like this:
-```yaml
-port: 3000
-path: ""
