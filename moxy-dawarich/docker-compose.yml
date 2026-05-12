@@ -3,9 +3,19 @@ version: "3.7"
 services:
   redis:
     image: redis:7.4-alpine
+    command: >
+      redis-server
+      --save 900 1
+      --save 300 10
+      --appendonly no
     restart: always
     volumes:
       - ${APP_DATA_DIR}/data/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   db:
     image: postgis/postgis:17-3.5-alpine
@@ -17,6 +27,11 @@ services:
       POSTGRES_DB: dawarich_production
     volumes:
       - ${APP_DATA_DIR}/data/db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d dawarich_production"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     image: freikin/dawarich:latest
@@ -44,6 +59,11 @@ services:
       RAILS_LOG_TO_STDOUT: "true"
       SELF_HOSTED: "true"
       STORE_GEODATA: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   sidekiq:
     image: freikin/dawarich:latest
@@ -64,3 +84,10 @@ services:
       DATABASE_NAME: dawarich_production
       BACKGROUND_PROCESSING_CONCURRENCY: 5
       SECRET_KEY_BASE: ${APP_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      app:
+        condition: service_healthy
