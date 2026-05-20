@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.7'
 
 services:
   app_proxy:
@@ -21,7 +21,7 @@ services:
       timeout: 10s
       
   db:
-    image: postgis/postgis:17-3.5-alpine
+    image: postgis/postgis:17-3.5-alpine:latest
     shm_size: 1G
     volumes:
       - ${APP_DATA_DIR}/data/db_data:/var/lib/postgresql/data
