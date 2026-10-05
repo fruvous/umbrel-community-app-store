@@ -1,0 +1,14 @@
+services:
+  app_proxy:
+    environment:
+      APP_HOST: moxy-orb_web_1
+      APP_PORT: 7443
+      PROXY_AUTH_ADD: "false"
+
+  web:
+    image: orbforge/orb:latest
+    restart: unless-stopped
+    init: true
+    network_mode: host
+    volumes:
+      - "${APP_DATA_DIR}/config:/root/.config/orb"
