@@ -15,12 +15,10 @@ repo: https://github.com/fruvous/umbrel-community-app-store
 support: https://github.com/fruvous/umbrel-community-app-store/issues
 port: 9999
 gallery:
-  - 1.jpg
-  - 2.jpg
-  - 3.jpg
+  - 
 path: ""
 defaultUsername: ""
 defaultPassword: ""
-icon: https://
+icon: https://avatars.githubusercontent.com/u/24867479?s=200&v=4
 submitter: moxy
 submission: https://github.com/fruvous/umbrel-community-app-store
