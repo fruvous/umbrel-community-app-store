@@ -1,0 +1,26 @@
+manifestVersion: 1
+id: moxy-stashapp
+category: utility
+name: StashApp
+version: "0.32.0"
+tagline: Stash App
+description: >-
+  tash is a self-hosted webapp written in Go which organizes and serves your diverse content collection, catering to both your SFW and NSFW needs.
+releaseNotes: >-
+  This version includes various improvements and bug fixes.
+developer: Stash
+website: https://github.com/fruvous/umbrel-community-app-store
+dependencies: []
+repo: https://github.com/fruvous/umbrel-community-app-store
+support: https://github.com/fruvous/umbrel-community-app-store/issues
+port: 9999
+gallery:
+  - 1.jpg
+  - 2.jpg
+  - 3.jpg
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+icon: https://
+submitter: moxy
+submission: https://github.com/fruvous/umbrel-community-app-store
